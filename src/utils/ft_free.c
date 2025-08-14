@@ -6,16 +6,34 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 18:42:53 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/12 18:43:51 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/14 14:59:55 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_pipe.h"
+#include <stdlib.h>
 
-void	ft_free_pipe(t_pipe *pipe)
+void	ft_free_split(char **split)
 {
 	int	i;
 
+	if (!split)
+		return ;
+	i = 0;
+	while (split[i])
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
+}
+
+void	ft_free_pipe(void *cont)
+{
+	t_pipe *pipe;
+	int	i;
+
+	pipe = (t_pipe *)cont;
 	if (!pipe)
 		return ;
 	if (pipe->args)
