@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 18:42:53 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/14 14:59:55 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/14 20:15:58 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	ft_free_split(char **split)
 
 void	ft_free_pipe(void *cont)
 {
-	t_pipe *pipe;
-	int	i;
+	t_pipe	*pipe;
+	int		i;
 
 	pipe = (t_pipe *)cont;
 	if (!pipe)
