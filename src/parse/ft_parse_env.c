@@ -6,14 +6,16 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 12:57:11 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/14 13:49:42 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/16 15:04:58 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_pipe.h"
+#include "ft_printf.h"
 #include "ft_settings.h"
-#include "libft.h"
 #include "ft_utils.h"
+#include "libft.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -85,6 +87,21 @@ static char	*ft_parce_env(char *cmd, char **envp)
 	ft_free_split(paths);
 	return (NULL);
 }
+char	**get_env(void)
+{
+	char	**envp;
+
+	envp = ft_calloc(1, sizeof(char *));
+	if (!envp)
+		return (NULL);
+	envp[0] = ft_strdup("PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands");
+	if (!envp[0])
+	{
+		free(envp);
+		return (NULL);
+	}
+	return (envp);
+}
 
 int	ft_set_progname(t_list *cmds, char **envp)
 {
@@ -100,7 +117,16 @@ int	ft_set_progname(t_list *cmds, char **envp)
 		pipe = (t_pipe *)current->content;
 		path = ft_parce_env(pipe->args[0], envp);
 		if (!path)
-			return (0);
+			path = ft_parce_env(pipe->args[0], get_env());
+		if (!path)
+		{
+			ft_printf_fd(STDERR_FILENO, "pipex: %s: command not found\n",
+				pipe->args[0]);
+		}
+		if (!current->next && !path)
+		{
+			exit(127);
+		}
 		pipe->cmdname = path;
 		current = current->next;
 	}
