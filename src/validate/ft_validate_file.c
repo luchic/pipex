@@ -6,14 +6,16 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 16:22:23 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/18 16:43:06 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/18 19:40:09 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_settings.h"
+#include "ft_printf.h"
 #include <errno.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <string.h>
 
 void	ft_validate_write_file(char *file)
 {
