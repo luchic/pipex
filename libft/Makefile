@@ -6,7 +6,7 @@
 #    By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/07 13:35:53 by nluchini          #+#    #+#              #
-#    Updated: 2025/08/10 20:57:56 by nluchini         ###   ########.fr        #
+#    Updated: 2025/08/14 20:21:12 by nluchini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -88,7 +88,8 @@ CORE = 			$(SRC)/$(PATH_PRINTF)/core
 
 ## Core
 PRINTF_CORE = 	$(CORE)/ft_vfprintf_fd.c \
-				$(CORE)/ft_printf.c
+				$(CORE)/ft_printf.c \
+				$(CORE)/ft_printf_fd.c
 PROBJ_CORE = 	$(PRINTF_CORE:.c=.o)
 
 ## Parser
