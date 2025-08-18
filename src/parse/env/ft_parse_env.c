@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 12:57:11 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/18 13:16:16 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/18 21:31:56 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,10 @@
 #include "ft_settings.h"
 #include "ft_utils.h"
 #include "libft.h"
+#include "ft_parse.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-
-char	**get_env(void)
-{
-	char	**envp;
-
-	envp = ft_calloc(1, sizeof(char *));
-	if (!envp)
-		return (NULL);
-	envp[0] = ft_strdup("PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands");
-	if (!envp[0])
-	{
-		free(envp);
-		return (NULL);
-	}
-	return (envp);
-}
 
 static char	*ft_getenv(char **envp)
 {
@@ -45,7 +30,7 @@ static char	*ft_getenv(char **envp)
 			return (*envp + ft_strlen(PATH));
 		envp++;
 	}
-	envp = get_env();
+	envp = ft_default_getenv();
 	return (envp[0] + ft_strlen(PATH));
 }
 
@@ -96,10 +81,7 @@ static char	*ft_parce_env(char *cmd, char **envp)
 	{
 		full_path = ft_join_path(paths[i], cmd);
 		if (access(full_path, F_OK) == 0)
-		{
-			ft_free_split(paths);
-			return (full_path);
-		}
+			return (ft_free_split(paths), full_path);
 		free(full_path);
 		i++;
 	}

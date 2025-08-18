@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 11:53:41 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/18 19:20:32 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/18 21:30:27 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@ char	**ft_split_args(char *str, char delim);
 int		ft_get_readfile(char *file);
 int		ft_get_writefile(char *file);
 char	**ft_merge_qute(char **args, int size, char quote);
+char	**ft_default_getenv(void);
 
 #endif
