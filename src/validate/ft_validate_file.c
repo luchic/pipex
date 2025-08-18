@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_validate.h                                      :+:      :+:    :+:   */
+/*   ft_validate_file.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/12 17:07:21 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/18 16:42:26 by nluchini         ###   ########.fr       */
+/*   Created: 2025/08/18 16:22:23 by nluchini          #+#    #+#             */
+/*   Updated: 2025/08/18 16:43:06 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_VALIDATE_H
-# define FT_VALIDATE_H
+#include "ft_settings.h"
+#include <errno.h>
+#include <unistd.h>
+#include <stdlib.h>
 
-# include "libft.h"
-
-int		ft_validate_cmd(t_list *cmds, char **envp);
-int		ft_validate_prog(t_list *cmd);
-void	ft_validate_write_file(char *file);
-#endif
+void	ft_validate_write_file(char *file)
+{
+	if (access(file, F_OK) == 0)
+	{
+		if (access(file, W_OK) != 0)
+		{
+			ft_printf_fd(STDERR_FILENO, "%s: %s: %s\n", PIPEX, file,
+				strerror(errno));
+			exit(EXIT_FAILURE);
+		}
+	}
+}
