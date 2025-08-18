@@ -8,11 +8,14 @@ CORE = $(SRC)/core
 UTILS = $(SRC)/utils
 VALIDATE = $(SRC)/validate
 PARSE = $(SRC)/parse
+APARSE = $(PARSE)/args
+EPARSE = $(PARSE)/env
 
 SRC_FILES = $(wildcard $(CORE)/*.c) 
 SRC_FILES +=$(wildcard $(UTILS)/*.c)
 SRC_FILES +=$(wildcard $(VALIDATE)/*.c) 
-SRC_FILES +=$(wildcard $(PARSE)/*.c)
+SRC_FILES +=$(wildcard $(APARSE)/*.c)
+SRC_FILES +=$(wildcard $(EPARSE)/*.c)
 SRC_FILES += $(SRC)/main.c
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
