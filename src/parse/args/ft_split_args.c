@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 19:08:19 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/15 19:39:40 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/18 15:13:33 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,22 @@
 #include "libft.h"
 #include <stdlib.h>
 
+// static char **ft_join_cmd_to_space(char *str, char *tmp)
+// {
+
+// }
+
 static char	*ft_join_cmds(int *i, char **args, char quote)
 {
 	char	*tmp;
 	char	*cpy;
-
+	int count;
 	tmp = ft_strdup("");
 	if (!tmp)
 		return (NULL);
-	while (args[*i] && args[*i][ft_strlen(args[*i]) - 1] != quote)
-	{
+	count = 0;
+	while (args[*i + 1] /* && args[*i][ft_strlen(args[*i]) - 1] != quote */)
+	{	
 		cpy = tmp;
 		tmp = ft_strjoin(tmp, args[*i]);
 		free(cpy);
@@ -47,16 +53,24 @@ static char	*ft_join_cmds(int *i, char **args, char quote)
 			return (NULL);
 		(*i) += 1;
 	}
-	cpy = ft_substr(tmp, 1, ft_strlen(tmp) - 2);
+	count = 0;
+	while (tmp[count] && tmp[count] == quote)
+		count++;
+	cpy = ft_substr(tmp, count, ft_strlen(tmp) - 2 * count);
 	free(tmp);
-	if (cpy[0] == '\'' && cpy[ft_strlen(cpy) - 1] == '\'')
-	{
-		tmp = ft_substr(cpy, 1, ft_strlen(cpy) - 2);
-		free(cpy);
-		cpy = tmp;
-	}
+
 	return (cpy);
 }
+
+// static void ft_replace_marks(char *str)
+// {
+// 	while (*str)
+// 	{
+// 		if(*str == '\'')
+// 			*str = '\"';
+// 		str++;
+// 	}
+// }
 
 static char	**ft_merge_qute(char **args, int size, char quote)
 {
@@ -88,27 +102,48 @@ static int	ft_check_if_quotes(char **args, char quote)
 {
 	char	*str;
 	int		is_quote;
-	int		j;
 	int		i;
 
 	is_quote = 0;
 	i = 0;
-	j = 0;
 	while (args[i])
 	{
 		str = args[i];
 		if (str[0] == quote && !is_quote)
-		{
 			is_quote = 1;
-			j = i;
-		}
-		else if (str[ft_strlen(str) - 1] == quote && is_quote)
-		{
-			return (i - j);
-		}
+		if (str[ft_strlen(str) - 1] == quote && is_quote)
+			return (1);
 		i++;
 	}
 	return (0);
+}
+
+void ft_shift(char *str)
+{
+	while (*(str + 1))
+	{
+		char c = *(str + 1);
+		*str = c;
+		str++;
+	}
+	*str = '\0';
+}
+
+
+void ft_parse_backslash(char **args)
+{
+	char *str;
+	while(*args)
+	{
+		str = *args;
+		while (*str && ft_strchr(str, '\\') && ft_strchr(str + 1, '"'))
+		{
+			if(*str == '\\')
+				ft_shift(str);
+			str++;
+		}
+		args++;
+	}
 }
 
 char	**ft_split_args(char *str, char delim)
@@ -116,12 +151,14 @@ char	**ft_split_args(char *str, char delim)
 	char	**args;
 	int		size;
 
+	// ft_replace_marks(str);
 	args = ft_split(str, delim);
 	if (!args)
 		return (NULL);
 	size = 0;
 	while (args[size])
 		size++;
+	ft_parse_backslash(args);
 	if (ft_check_if_quotes(args, '\''))
 		return (ft_merge_qute(args, size, '\''));
 	if (ft_check_if_quotes(args, '\"'))
@@ -134,7 +171,7 @@ char	**ft_split_args(char *str, char delim)
 // 	int i = 0;
 // 	while (args[i])
 // 	{
-// 		ft_printf("%s\n", args[i]);
+// 		ft_printf("args[%d]: %s\n", i, args[i]);
 // 		i++;
 // 	}
 
@@ -142,10 +179,14 @@ char	**ft_split_args(char *str, char delim)
 
 // int main()
 // {
-// 	char *str = "grep -v 'u y'";
+// 	// char *t = 'awk '"'"'{count++} END {printf "count: %i", count}'"'"'';
+// 	// char *str = "awk \"tmp\" \"{count++} END {printf \"count: %i\" , count}\"";
+// 	char str[] = "awk \"{count++} END {print count}\"";
+// 	char str2[] = "awk \"{count++} END {printf \"count: %i\" , count}\"";
+// 	char str3[] = "awk '\"'\"'{count++} END {printf \"count: %i\", count}'\"'\"'";
 // 	char **args;
 
-// 	args = ft_split_args(str, ' ');
+// 	args = ft_split_args(str3, ' ');
 // 	print_args(args);
 
 // }

@@ -6,18 +6,19 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 12:51:31 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/13 11:29:09 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/16 15:33:03 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_pipe.h"
+#include "ft_parse.h"
 #include "ft_settings.h"
 #include "libft.h"
 #include <stdlib.h>
 
 static void	ft_delpipe(void *pipe)
 {
-	int	i;
+	int		i;
 	t_pipe	*npipe;
 
 	npipe = (t_pipe *)pipe;
@@ -42,7 +43,7 @@ static t_pipe	*ft_pipe_node(char *args)
 	npipe = ft_calloc(1, sizeof(t_pipe));
 	if (!npipe)
 		return (NULL);
-	npipe->args = ft_split(args, CMD_DELIM);
+	npipe->args = ft_split_args(args, CMD_DELIM);
 	npipe->fd_inline = -1;
 	npipe->fd_outline = -1;
 	npipe->pid = -1;

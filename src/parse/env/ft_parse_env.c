@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 12:57:11 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/16 15:04:58 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/18 13:16:16 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,22 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+char	**get_env(void)
+{
+	char	**envp;
+
+	envp = ft_calloc(1, sizeof(char *));
+	if (!envp)
+		return (NULL);
+	envp[0] = ft_strdup("PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands");
+	if (!envp[0])
+	{
+		free(envp);
+		return (NULL);
+	}
+	return (envp);
+}
+
 static char	*ft_getenv(char **envp)
 {
 	if (!envp)
@@ -29,7 +45,8 @@ static char	*ft_getenv(char **envp)
 			return (*envp + ft_strlen(PATH));
 		envp++;
 	}
-	return (NULL);
+	envp = get_env();
+	return (envp[0] + ft_strlen(PATH));
 }
 
 char	**ft_getenv_paths(char **envp)
@@ -70,7 +87,9 @@ static char	*ft_parce_env(char *cmd, char **envp)
 	paths = ft_getenv_paths(envp);
 	if (!paths)
 		return (NULL);
-	if (access(cmd, F_OK) == 0)
+	if (cmd[0] == '.' && access(cmd, F_OK) != 0)
+		return (ft_free_split(paths), NULL);
+	else if (ft_strchr(cmd, '/') && access(cmd, F_OK) == 0)
 		return (ft_free_split(paths), ft_strdup(cmd));
 	i = 0;
 	while (paths[i])
@@ -87,21 +106,6 @@ static char	*ft_parce_env(char *cmd, char **envp)
 	ft_free_split(paths);
 	return (NULL);
 }
-char	**get_env(void)
-{
-	char	**envp;
-
-	envp = ft_calloc(1, sizeof(char *));
-	if (!envp)
-		return (NULL);
-	envp[0] = ft_strdup("PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Library/Apple/usr/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands");
-	if (!envp[0])
-	{
-		free(envp);
-		return (NULL);
-	}
-	return (envp);
-}
 
 int	ft_set_progname(t_list *cmds, char **envp)
 {
@@ -116,17 +120,15 @@ int	ft_set_progname(t_list *cmds, char **envp)
 	{
 		pipe = (t_pipe *)current->content;
 		path = ft_parce_env(pipe->args[0], envp);
-		if (!path)
-			path = ft_parce_env(pipe->args[0], get_env());
+		pipe->to_exec = 1;
 		if (!path)
 		{
 			ft_printf_fd(STDERR_FILENO, "pipex: %s: command not found\n",
 				pipe->args[0]);
+			pipe->to_exec = 0;
 		}
 		if (!current->next && !path)
-		{
 			exit(127);
-		}
 		pipe->cmdname = path;
 		current = current->next;
 	}
