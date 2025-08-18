@@ -6,14 +6,16 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:28:36 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/18 17:31:53 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/18 21:35:52 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_pipe.h"
+#include "ft_printf.h"
 #include "ft_utils.h"
 #include "libft.h"
 #include <errno.h>
+#include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 
