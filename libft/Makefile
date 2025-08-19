@@ -6,7 +6,7 @@
 #    By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/07 13:35:53 by nluchini          #+#    #+#              #
-#    Updated: 2025/08/19 13:38:42 by nluchini         ###   ########.fr        #
+#    Updated: 2025/08/19 18:56:00 by nluchini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -153,6 +153,6 @@ fclean : clean
 	rm -f $(NAME) 
 
 clean : 
-	rm -f $(CORE_OBJ_FIlES) $(OBJ_PRINTF)
+	rm -f $(CORE_OBJ_FIlES) $(OBJ_PRINTF) $(GNL_OBJ)
 
 .PHONY: all clean fclean re 
