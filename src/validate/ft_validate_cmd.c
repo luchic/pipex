@@ -6,10 +6,11 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 14:45:18 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/18 21:20:35 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/19 17:16:00 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_error.h"
 #include "ft_pipe.h"
 #include "ft_printf.h"
 #include "ft_settings.h"
@@ -20,15 +21,33 @@
 #include <string.h>
 #include <unistd.h>
 
-int	ft_validate_prog(t_list *cmd)
+int	ft_validate_cmd_if_exist(t_list *cmds)
 {
 	t_pipe	*cur_process;
 
-	if (!cmd || !cmd->content)
+	if (!cmds || !cmds->content)
 		return (0);
-	while (cmd)
+	while (cmds)
 	{
-		cur_process = cmd->content;
+		cur_process = cmds->content;
+		if (!cur_process->cmdname)
+			ft_command_not_found_errormsg(cur_process->args[0]);
+		if (!cmds->next && !cur_process->cmdname)
+			exit(NOT_EXIST_ERROR);
+		cmds = cmds->next;
+	}
+	return (1);
+}
+
+int	ft_validate_cmd_permisions(t_list *cmds)
+{
+	t_pipe	*cur_process;
+
+	if (!cmds || !cmds->content)
+		return (0);
+	while (cmds)
+	{
+		cur_process = cmds->content;
 		if (!cur_process || !cur_process->cmdname)
 			return (0);
 		if (access(cur_process->cmdname, X_OK) != 0)
@@ -36,10 +55,10 @@ int	ft_validate_prog(t_list *cmd)
 			cur_process->to_exec = 0;
 			ft_printf_fd(STDERR_FILENO, "%s: %s: %s\n", PIPEX, strerror(errno),
 				cur_process->cmdname);
-			if (!cmd->next)
+			if (!cmds->next)
 				exit(126);
 		}
-		cmd = cmd->next;
+		cmds = cmds->next;
 	}
 	return (1);
 }
