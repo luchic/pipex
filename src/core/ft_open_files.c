@@ -6,23 +6,22 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 16:31:20 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/19 16:41:38 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/19 16:52:42 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <fcntl.h>
-#include <string.h>
-#include <errno.h>
-#include <stdlib.h>
-
-#include "libft.h"
 #include "ft_printf.h"
-#include "ft_validate.h"
 #include "ft_settings.h"
+#include "ft_validate.h"
+#include "libft.h"
+#include <errno.h>
+#include <fcntl.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 
 void	fd_open_files(int *fd_in, int *fd_out, char *input_file,
-	char *output_file)
+		char *output_file)
 {
 	*fd_in = open(input_file, O_RDONLY);
 	if (*fd_in == -1)
@@ -77,7 +76,7 @@ static void	ft_write_data_to_std(char *del, int fd)
 }
 
 void	ft_open_here_doc(char *delimiter, char *output_file, int *fd_in,
-	int *fd_out)
+		int *fd_out)
 {
 	int	fd[2];
 

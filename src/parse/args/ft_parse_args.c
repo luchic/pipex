@@ -6,15 +6,15 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 12:51:31 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/18 19:07:58 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/19 16:52:23 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_pipe.h"
 #include "ft_parse.h"
+#include "ft_pipe.h"
 #include "ft_settings.h"
-#include "libft.h"
 #include "ft_utils.h"
+#include "libft.h"
 #include <stdlib.h>
 
 static t_pipe	*ft_pipe_node(char *args)

@@ -6,16 +6,16 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 12:57:11 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/18 21:31:56 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/19 16:51:46 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_parse.h"
 #include "ft_pipe.h"
 #include "ft_printf.h"
 #include "ft_settings.h"
 #include "ft_utils.h"
 #include "libft.h"
-#include "ft_parse.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -110,7 +110,7 @@ int	ft_set_progname(t_list *cmds, char **envp)
 			pipe->to_exec = 0;
 		}
 		if (!current->next && !path)
-			exit(127);
+			exit(NOT_EXIST_ERROR);
 		pipe->cmdname = path;
 		current = current->next;
 	}

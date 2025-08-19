@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 19:08:19 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/18 19:20:18 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/19 16:52:15 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include "ft_utils.h"
 #include "libft.h"
 #include <stdlib.h>
-
 
 static int	ft_check_if_quotes(char **args, char quote)
 {
@@ -86,30 +85,3 @@ char	**ft_split_args(char *str, char delim)
 		return (ft_merge_qute(args, size, '\"'));
 	return (args);
 }
-
-// void print_args(char **args)
-// {
-// 	int i = 0;
-// 	while (args[i])
-// 	{
-// 		ft_printf("args[%d]: %s\n", i, args[i]);
-// 		i++;
-// 	}
-
-// }
-
-// int main()
-// {
-// 	// char *t = 'awk '"'"'{count++} END {printf "count: %i", count}'"'"'';
-// 	// char *str = "awk \"tmp\" \"{count++} END {printf \"count: %i\" ,
-//		// count}\"";
-// 	char str[] = "awk \"{count++} END {print count}\"";
-// 	char str2[] = "awk \"{count++} END {printf \"count: %i\" , count}\"";
-// 	char str3[] = "awk '\"'\"'{count++} END {printf \"count: %i\",
-//		count}'\"'\"'";
-// 	char **args;
-
-// 	args = ft_split_args(str3, ' ');
-// 	print_args(args);
-
-// }

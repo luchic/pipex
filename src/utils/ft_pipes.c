@@ -6,18 +6,18 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:10:07 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/18 21:21:36 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/18 21:50:34 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_pipe.h"
 #include "ft_printf.h"
-#include "libft.h"
 #include "ft_settings.h"
+#include "libft.h"
 #include <errno.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
+#include <unistd.h>
 
 void	ft_close_pipe(t_list *cmds)
 {

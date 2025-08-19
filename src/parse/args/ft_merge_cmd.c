@@ -6,12 +6,12 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 19:19:44 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/18 20:56:15 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/19 16:52:28 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "ft_utils.h"
+#include "libft.h"
 #include <stdlib.h>
 
 static void	ft_extract_cmd(char **cmd, char quote)
