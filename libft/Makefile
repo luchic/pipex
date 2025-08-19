@@ -6,7 +6,7 @@
 #    By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/07 13:35:53 by nluchini          #+#    #+#              #
-#    Updated: 2025/08/14 20:21:12 by nluchini         ###   ########.fr        #
+#    Updated: 2025/08/19 13:38:42 by nluchini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -125,6 +125,13 @@ OBJ_PRINTF += $(OBJ_PARSER)
 OBJ_PRINTF += $(OBJ_PRINTER)
 OBJ_PRINTF += $(OBJ_TOOLS)
 
+## Get Next Line
+GNL = $(SRC)/get_next_line
+
+GNL_SRC =	$(GNL)/get_next_line.c \
+			$(GNL)/get_next_line_utils.c
+GNL_OBJ = $(GNL_SRC:.c=.o)
+
 #Include
 HEADER = includes
 
@@ -134,8 +141,8 @@ CC = cc
 
 all : $(NAME)
 
-$(NAME) : $(CORE_OBJ_FIlES) $(OBJ_PRINTF)
-	ar rcs $(NAME) $(CORE_OBJ_FIlES) $(OBJ_PRINTF)
+$(NAME) : $(CORE_OBJ_FIlES) $(OBJ_PRINTF) $(GNL_OBJ)
+	ar rcs $(NAME) $(CORE_OBJ_FIlES) $(OBJ_PRINTF) $(GNL_OBJ)
 
 %.o : %.c
 	$(CC) $(CFLAGS) -I $(HEADER) -o $@ -c $<

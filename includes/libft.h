@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 12:24:52 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/11 14:53:22 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/19 13:36:22 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -567,4 +567,11 @@ void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
 
+/**
+ * @brief  Write a function that returns a line read from a file descriptor.
+ * @param  fd: The file descriptor to read from.
+ * @retval Read line: correct behavior
+ * * NULL: there is nothing else to read, or an error occurred.
+ */
+char				*get_next_line(int fd);
 #endif
