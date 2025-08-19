@@ -7,3 +7,4 @@ tests/
 *.a
 *.txt
 checker_Mac
+pipex
