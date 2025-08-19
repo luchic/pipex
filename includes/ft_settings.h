@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 11:49:20 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/18 21:21:22 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/19 17:11:25 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,15 @@
 # define PIPEX "pipex"
 # define ARG_ERROR "Error parsing arguments"
 # define PIPE_ERROR "Error creating pipe"
+# define CMD_NOTFOUND "command not found"
 
 # define PATH "PATH="
 # define PATH_DELIM ':'
 # define CMD_DELIM ' '
 
-# define EXIT_WRITE_FILE_ERROR 127
+# define HERE_DOC "here_doc"
+# define BUFFER_SIZE 64
+
+# define NOT_EXIST_ERROR 127
 
 #endif
