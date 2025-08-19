@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 16:31:20 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/19 16:52:42 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/19 18:39:17 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,19 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include "ft_error.h"
 
 void	fd_open_files(int *fd_in, int *fd_out, char *input_file,
 		char *output_file)
 {
 	*fd_in = open(input_file, O_RDONLY);
 	if (*fd_in == -1)
-	{
-		ft_printf_fd(STDERR_FILENO, "%s: %s: %s\n", PIPEX, input_file,
-			strerror(errno));
-	}
+		ft_std_errmsg(input_file);
 	ft_validate_write_file(output_file);
 	*fd_out = open(output_file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (*fd_out == -1)
 	{
-		ft_printf_fd(STDERR_FILENO, "%s: %s: %s\n", PIPEX, output_file,
-			strerror(errno));
+		ft_std_errmsg(output_file);
 		close(*fd_in);
 		exit(NOT_EXIST_ERROR);
 	}
@@ -82,7 +79,7 @@ void	ft_open_here_doc(char *delimiter, char *output_file, int *fd_in,
 
 	if (pipe(fd) == -1)
 	{
-		ft_printf_fd(STDERR_FILENO, "%s: %s\n", PIPEX, PIPE_ERROR);
+		ft_open_pipe_errormsg();
 		exit(EXIT_FAILURE);
 	}
 	ft_write_data_to_std(delimiter, fd[1]);
@@ -91,8 +88,7 @@ void	ft_open_here_doc(char *delimiter, char *output_file, int *fd_in,
 	*fd_out = open(output_file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (*fd_out == -1)
 	{
-		ft_printf_fd(STDERR_FILENO, "%s: %s: %s\n", PIPEX, output_file,
-			strerror(errno));
+		ft_std_errmsg(output_file);
 		close(*fd_in);
 		exit(NOT_EXIST_ERROR);
 	}

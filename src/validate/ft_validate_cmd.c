@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 14:45:18 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/19 17:16:00 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/19 17:27:16 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,7 @@ int	ft_validate_cmd_permisions(t_list *cmds)
 		if (access(cur_process->cmdname, X_OK) != 0)
 		{
 			cur_process->to_exec = 0;
-			ft_printf_fd(STDERR_FILENO, "%s: %s: %s\n", PIPEX, strerror(errno),
-				cur_process->cmdname);
+			ft_std_errmsg(cur_process->cmdname);
 			if (!cmds->next)
 				exit(126);
 		}

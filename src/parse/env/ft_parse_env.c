@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 12:57:11 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/19 16:51:46 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/19 18:50:56 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,14 @@ static char	*ft_parce_env(char *cmd, char **envp)
 	while (paths[i])
 	{
 		full_path = ft_join_path(paths[i], cmd);
+		if (!full_path)
+			return (ft_free_split(paths), NULL);
 		if (access(full_path, F_OK) == 0)
 			return (ft_free_split(paths), full_path);
 		free(full_path);
 		i++;
 	}
-	ft_free_split(paths);
-	return (NULL);
+	return (ft_free_split(paths), NULL);
 }
 
 int	ft_set_progname(t_list *cmds, char **envp)
@@ -104,13 +105,7 @@ int	ft_set_progname(t_list *cmds, char **envp)
 		path = ft_parce_env(pipe->args[0], envp);
 		pipe->to_exec = 1;
 		if (!path)
-		{
-			ft_printf_fd(STDERR_FILENO, "pipex: %s: command not found\n",
-				pipe->args[0]);
 			pipe->to_exec = 0;
-		}
-		if (!current->next && !path)
-			exit(NOT_EXIST_ERROR);
 		pipe->cmdname = path;
 		current = current->next;
 	}

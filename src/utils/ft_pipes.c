@@ -6,17 +6,15 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:10:07 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/18 21:50:34 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/19 18:50:32 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_pipe.h"
-#include "ft_printf.h"
 #include "ft_settings.h"
 #include "libft.h"
-#include <errno.h>
+#include "ft_error.h"
 #include <stdlib.h>
-#include <string.h>
 #include <unistd.h>
 
 void	ft_close_pipe(t_list *cmds)
@@ -49,8 +47,7 @@ void	ft_set_pipes(t_list *cmd)
 	{
 		if (pipe(fd) == -1)
 		{
-			ft_printf_fd(STDERR_FILENO, "%s: %s: %s\n", PIPEX, PIPE_ERROR,
-				strerror(errno));
+			ft_open_pipe_errormsg();
 			exit(EXIT_FAILURE);
 		}
 		pp = cur->content;

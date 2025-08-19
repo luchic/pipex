@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 15:20:32 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/19 16:38:40 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/19 19:04:33 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	main(int argc, char **argv, char **envp)
 	int		fd_in;
 	int		fd_out;
 
+	// envp = NULL;
 	if (argc < 5)
 		return (EXIT_FAILURE);
 	if (!ft_strcmp(argv[1], HERE_DOC))
@@ -42,6 +43,7 @@ int	main(int argc, char **argv, char **envp)
 		return (EXIT_FAILURE);
 	}
 	ft_set_progname(cmds, envp);
-	ft_validate_prog(cmds);
+	ft_validate_cmd_if_exist(cmds);
+	ft_validate_cmd_permisions(cmds);
 	ft_run(cmds, fd_in, fd_out, envp);
 }

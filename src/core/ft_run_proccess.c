@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 20:30:10 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/18 17:39:40 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/19 18:54:01 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <sys/wait.h>
 
 void	ft_run_fort(t_list *head, t_pipe *cur_process, char **envp)
 {
