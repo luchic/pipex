@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 11:53:41 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/19 11:28:09 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/20 10:57:45 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@ char	**ft_getenv_paths(char **envp);
 int		ft_set_progname(t_list *cmds, char **envp);
 char	**ft_split_args(char *str, char delim);
 char	**ft_merge_qute(char **args, int size, char quote);
-char	**ft_default_getenv(void);
+char	*ft_default_getenv(void);
 
 #endif

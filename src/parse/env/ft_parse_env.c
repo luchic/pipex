@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 12:57:11 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/19 18:50:56 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/20 11:00:05 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,25 +22,31 @@
 
 static char	*ft_getenv(char **envp)
 {
-	if (!envp)
-		return (NULL);
-	while (*envp)
+	while (envp && *envp)
 	{
 		if (ft_strncmp(*envp, PATH, ft_strlen(PATH)) == 0)
 			return (*envp + ft_strlen(PATH));
 		envp++;
 	}
-	envp = ft_default_getenv();
-	return (envp[0] + ft_strlen(PATH));
+	return (NULL);
 }
 
 char	**ft_getenv_paths(char **envp)
 {
 	char	*path_value;
+	char	*default_path;
+	char	**paths;
 
 	path_value = ft_getenv(envp);
 	if (!path_value)
-		return (NULL);
+	{
+		default_path = ft_default_getenv();
+		if (!default_path)
+			return (NULL);
+		paths = ft_split(default_path, PATH_DELIM);
+		free(default_path);
+		return (paths);
+	}
 	return (ft_split(path_value, PATH_DELIM));
 }
 
@@ -67,7 +73,7 @@ static char	*ft_parce_env(char *cmd, char **envp)
 	char	*full_path;
 	int		i;
 
-	if (!cmd || !envp)
+	if (!cmd)
 		return (NULL);
 	paths = ft_getenv_paths(envp);
 	if (!paths)
@@ -96,7 +102,7 @@ int	ft_set_progname(t_list *cmds, char **envp)
 	t_list	*current;
 	char	*path;
 
-	if (!cmds || !envp)
+	if (!cmds)
 		return (0);
 	current = cmds;
 	while (current)
