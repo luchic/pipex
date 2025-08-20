@@ -6,14 +6,14 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:10:07 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/19 18:50:32 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/19 21:01:03 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_error.h"
 #include "ft_pipe.h"
 #include "ft_settings.h"
 #include "libft.h"
-#include "ft_error.h"
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -27,9 +27,15 @@ void	ft_close_pipe(t_list *cmds)
 	{
 		pp = cur->content;
 		if (pp->fd_inline != -1)
+		{
 			close(pp->fd_inline);
+			pp->fd_inline = -1;
+		}
 		if (pp->fd_outline != -1)
+		{
 			close(pp->fd_outline);
+			pp->fd_outline = -1;
+		}
 		cur = cur->next;
 	}
 }
