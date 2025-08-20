@@ -6,20 +6,16 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 14:45:18 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/19 21:04:12 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/20 11:18:16 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_error.h"
 #include "ft_pipe.h"
-#include "ft_printf.h"
 #include "ft_settings.h"
 #include "ft_utils.h"
 #include "libft.h"
-#include <errno.h>
-#include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <unistd.h>
 
 int	ft_validate_cmd_if_exist(t_list *cmds)

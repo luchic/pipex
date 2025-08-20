@@ -6,20 +6,18 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 16:31:20 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/19 18:39:17 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/20 11:15:10 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_error.h"
 #include "ft_printf.h"
 #include "ft_settings.h"
 #include "ft_validate.h"
 #include "libft.h"
-#include <errno.h>
 #include <fcntl.h>
 #include <stdlib.h>
-#include <string.h>
 #include <unistd.h>
-#include "ft_error.h"
 
 void	fd_open_files(int *fd_in, int *fd_out, char *input_file,
 		char *output_file)
@@ -79,7 +77,7 @@ void	ft_open_here_doc(char *delimiter, char *output_file, int *fd_in,
 
 	if (pipe(fd) == -1)
 	{
-		ft_open_pipe_errormsg();
+		ft_print_errormsg(PIPE_ERROR);
 		exit(EXIT_FAILURE);
 	}
 	ft_write_data_to_std(delimiter, fd[1]);

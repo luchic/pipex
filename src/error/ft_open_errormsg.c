@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 16:54:20 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/19 17:27:48 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/20 11:11:30 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 #include <string.h>
 #include <unistd.h>
 
-void	ft_open_pipe_errormsg(void)
+void	ft_print_errormsg(char *msg)
 {
-	ft_printf_fd(STDERR_FILENO, "%s: %s\n", PIPEX, PIPE_ERROR);
+	ft_printf_fd(STDERR_FILENO, "%s: %s\n", PIPEX, msg);
 }
 
 void	ft_common_errormsg(void)

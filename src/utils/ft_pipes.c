@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:10:07 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/19 21:01:03 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/20 11:18:13 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	ft_set_pipes(t_list *cmd)
 	{
 		if (pipe(fd) == -1)
 		{
-			ft_open_pipe_errormsg();
+			ft_print_errormsg(PIPE_ERROR);
 			exit(EXIT_FAILURE);
 		}
 		pp = cur->content;
