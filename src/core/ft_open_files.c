@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 16:31:20 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/20 11:15:10 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/20 13:46:12 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void	ft_open_here_doc(char *delimiter, char *output_file, int *fd_in,
 	ft_write_data_to_std(delimiter, fd[1]);
 	*fd_in = fd[0];
 	close(fd[1]);
+	ft_validate_write_file(output_file);
 	*fd_out = open(output_file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (*fd_out == -1)
 	{
