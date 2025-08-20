@@ -6,17 +6,17 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 16:22:23 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/19 17:28:45 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/19 21:02:46 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_error.h"
 #include "ft_printf.h"
 #include "ft_settings.h"
 #include <errno.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include "ft_error.h"
 
 void	ft_validate_write_file(char *file)
 {
