@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 15:20:32 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/20 11:18:20 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/20 13:05:58 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	main(int argc, char **argv, char **envp)
 	if (!cmds)
 		return (ft_print_errormsg(ARG_ERROR), EXIT_FAILURE);
 	ft_set_progname(cmds, envp);
-	ft_validate_cmd_if_exist(cmds);
+	ft_validate_cmd_if_exist(cmds, fd_in);
 	ft_validate_cmd_permisions(cmds);
 	ft_run(cmds, fd_in, fd_out, envp);
 	ft_lstclear(&cmds, ft_free_pipe);

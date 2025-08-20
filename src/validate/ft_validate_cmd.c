@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 14:45:18 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/20 11:18:16 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/20 13:05:14 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-int	ft_validate_cmd_if_exist(t_list *cmds)
+int	ft_validate_cmd_if_exist(t_list *cmds, int fd_in)
 {
 	t_pipe	*cur_process;
 	t_list	*head;
@@ -29,7 +29,7 @@ int	ft_validate_cmd_if_exist(t_list *cmds)
 	while (cmds)
 	{
 		cur_process = cmds->content;
-		if (!cur_process->cmdname)
+		if (!cur_process->cmdname && (fd_in != -1 || head != cmds))
 			ft_command_not_found_errormsg(cur_process->args[0]);
 		if (!cmds->next && !cur_process->cmdname)
 		{
