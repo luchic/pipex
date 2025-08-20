@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 20:30:10 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/20 10:49:55 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/20 11:39:00 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
 #include <sys/wait.h>
+#include <unistd.h>
 
 void	ft_run_fork(t_list *head, t_pipe *cur_process, char **envp)
 {
@@ -65,12 +65,12 @@ void	ft_wait_to(t_list *cmds)
 			cmds = cmds->next;
 			continue ;
 		}
-		if (cur_process->fd_inline > 0 && WIFEXITED(status))
-			if (WEXITSTATUS(status))
-			{
-				ft_lstclear(&head, ft_free_pipe);
-				exit(WEXITSTATUS(status));
-			}
+		if (cur_process->fd_inline > 0 && WIFEXITED(status)
+			&& WEXITSTATUS(status))
+		{
+			ft_lstclear(&head, ft_free_pipe);
+			exit(WEXITSTATUS(status));
+		}
 		cmds = cmds->next;
 	}
 }
