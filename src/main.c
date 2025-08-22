@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 15:20:32 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/20 13:05:58 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/22 16:03:25 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,20 @@
 #include "libft.h"
 #include <stdlib.h>
 #include <unistd.h>
+
+void	ft_close(int fd_in, int fd_out)
+{
+	if (fd_in != -1)
+	{
+		close(fd_in);
+		fd_in = -1;
+	}
+	if (fd_out != -1)
+	{
+		close(fd_out);
+		fd_out = -1;
+	}
+}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -39,7 +53,8 @@ int	main(int argc, char **argv, char **envp)
 		cmds = ft_parse_args(argc - 3, argv + 2);
 	}
 	if (!cmds)
-		return (ft_print_errormsg(ARG_ERROR), EXIT_FAILURE);
+		return (ft_close(fd_in, fd_out), ft_print_errormsg(ARG_ERROR),
+			EXIT_FAILURE);
 	ft_set_progname(cmds, envp);
 	ft_validate_cmd_if_exist(cmds, fd_in);
 	ft_validate_cmd_permisions(cmds);

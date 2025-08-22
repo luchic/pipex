@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 12:51:31 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/19 20:42:28 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/22 16:00:40 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static t_pipe	*ft_pipe_node(char *args)
 	if (!npipe)
 		return (NULL);
 	npipe->args = ft_split_args(args, CMD_DELIM);
+	npipe->cmdname = NULL;
 	npipe->fd_inline = -1;
 	npipe->fd_outline = -1;
 	npipe->pid = -1;
