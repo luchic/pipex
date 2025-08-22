@@ -6,13 +6,14 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/18 17:10:07 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/20 11:18:13 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/22 15:28:28 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_error.h"
 #include "ft_pipe.h"
 #include "ft_settings.h"
+#include "ft_utils.h"
 #include "libft.h"
 #include <stdlib.h>
 #include <unistd.h>
@@ -46,14 +47,18 @@ void	ft_set_pipes(t_list *cmd)
 	t_pipe	*pp;
 	t_list	*next;
 	t_list	*cur;
+	t_list	*head;
 
 	cur = cmd;
+	head = cmd;
 	next = cur->next;
 	while (next)
 	{
 		if (pipe(fd) == -1)
 		{
 			ft_print_errormsg(PIPE_ERROR);
+			ft_close_pipe(cmd);
+			ft_lstclear(&head, ft_free_pipe);
 			exit(EXIT_FAILURE);
 		}
 		pp = cur->content;

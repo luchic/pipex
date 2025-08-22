@@ -14,8 +14,9 @@ VALIDATE = 	$(SRC)/validate/ft_validate_cmd.c \
 ERROR = $(SRC)/error/ft_errormsg.c
 
 PARSE =		$(SRC)/parse
-APARSE = 	$(PARSE)/args/ft_merge_cmd.c \
+APARSE = 	$(PARSE)/args/ft_copy_arg.c \
 			$(PARSE)/args/ft_parse_args.c \
+			$(PARSE)/args/ft_update_args.c \
 			$(PARSE)/args/ft_split_args.c 
 EPARSE =	$(PARSE)/env/ft_default.c \
 			$(PARSE)/env/ft_parse_env.c
@@ -43,7 +44,7 @@ TOUT = a.out
 
 # Compiler and flags
 CFLAGS = -Wall -Wextra -Werror -I$(HEADER)
-# CDEBUG = -g -I$(HEADER) -fsanitize=address,undefined
+CDEBUG = -g -I$(HEADER) -fsanitize=address,undefined
 CC = cc
 
 all : $(NAME)
@@ -53,8 +54,8 @@ $(NAME) : $(OBJ_FILES) $(LIBFT)
 
 bonus : all
 
-# debug : $(SRC_FILES) $(LIBFT)
-# 	$(CC) $(CDEBUG) -o $(NAME) $(SRC_FILES) -L$(DLIBFT) -l$(FT)	
+debug : $(SRC_FILES) $(LIBFT)
+	$(CC) $(CDEBUG) -o $(NAME) $(SRC_FILES) -L$(DLIBFT) -l$(FT)	
 
 $(LIBFT) :
 	make -C $(DLIBFT) all

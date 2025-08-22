@@ -6,7 +6,7 @@
 /*   By: nluchini <nluchini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 19:08:19 by nluchini          #+#    #+#             */
-/*   Updated: 2025/08/19 16:52:15 by nluchini         ###   ########.fr       */
+/*   Updated: 2025/08/22 15:22:28 by nluchini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,71 +17,66 @@
 #include "libft.h"
 #include <stdlib.h>
 
-static int	ft_check_if_quotes(char **args, char quote)
+char	**simple_get_args(char *str, char delim)
 {
-	char	*str;
-	int		is_quote;
-	int		i;
+	char	**args;
 
-	is_quote = 0;
-	i = 0;
-	while (args[i])
+	args = NULL;
+	while (*str)
 	{
-		str = args[i];
-		if (str[0] == quote && !is_quote)
-			is_quote = 1;
-		if (str[ft_strlen(str) - 1] == quote && is_quote)
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-static void	ft_shift(char *str)
-{
-	char	c;
-
-	while (*(str + 1))
-	{
-		c = *(str + 1);
-		*str = c;
-		str++;
-	}
-	*str = '\0';
-}
-
-static void	ft_parse_backslash(char **args)
-{
-	char	*str;
-
-	while (*args)
-	{
-		str = *args;
-		while (*str && ft_strchr(str, '\\') && ft_strchr(str + 1, '"'))
-		{
-			if (*str == '\\')
-				ft_shift(str);
+		while (*str && *str == delim)
 			str++;
-		}
-		args++;
+		if (!*str)
+			break ;
+		if (*str == '\'')
+			str = ft_copy_until_quote(str, &args);
+		else if (*str == '\"')
+			str = ft_copy_until_double_quote(str, &args);
+		else
+			str = ft_copy_until_delim(str, &args, delim);
+		if (!str)
+			return (ft_free_split(args), NULL);
 	}
+	return (args);
 }
 
 char	**ft_split_args(char *str, char delim)
 {
-	char	**args;
-	int		size;
+	int	flags;
+	int	i;
 
-	args = ft_split(str, delim);
-	if (!args)
-		return (NULL);
-	size = 0;
-	while (args[size])
-		size++;
-	ft_parse_backslash(args);
-	if (ft_check_if_quotes(args, '\''))
-		return (ft_merge_qute(args, size, '\''));
-	if (ft_check_if_quotes(args, '\"'))
-		return (ft_merge_qute(args, size, '\"'));
-	return (args);
+	i = 0;
+	flags = 0;
+	while (str[i])
+	{
+		if (str[i] == '\'' || str[i] == '\"' || str[i] == '\\')
+			flags = 1;
+		i++;
+	}
+	if (!flags)
+		return (ft_split(str, delim));
+	else
+		return (simple_get_args(str, delim));
 }
+
+// #include <stdio.h>
+
+// int main(int argc, char **argv)
+// {
+// 	// char *args = "Hello '\"World\"' \"'This is a test'\" \"Cat
+//	//	+ Dog is \\\"Nap\\\"";
+// 	char *args = "./script\"quote.sh";
+// 	char **result = ft_split_args(args, ' ');
+// 	if (!result)
+// 	{
+// 		ft_printf("Error: Memory allocation failed.\n");
+// 		return (1);
+// 	}
+// 	for (int i = 0; result[i]; i++)
+// 	{
+// 		ft_printf("Arg [%d]: %s\n", i, result[i]);
+// 		free(result[i]);
+// 	}
+// 	free(result);
+// 	return (0);
+// }
